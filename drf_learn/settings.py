@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # 自定义
     'api',
+    'jwt_demo',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,8 @@ REST_FRAMEWORK = {
     ],
     # 全局异常处理模块
     'EXCEPTION_HANDLER': 'api.exception.exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'extensions.auth.JwtQueryParamAuthentication',
+        'extensions.auth.JwtAuthorizationAuthentication',
+    ]
 }
