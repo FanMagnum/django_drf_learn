@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from utils.jwt_ayth import create_token
+from utils.jwt_auth import create_token
 
 
 class LoginView(APIView):

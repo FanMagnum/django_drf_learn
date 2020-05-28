@@ -8,7 +8,7 @@
 """
 from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication
-from utils.jwt_ayth import parse_payload
+from utils.jwt_auth import parse_payload
 
 
 class JwtQueryParamAuthentication(BaseAuthentication):

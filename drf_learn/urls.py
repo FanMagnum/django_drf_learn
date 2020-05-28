@@ -17,10 +17,32 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="测试工程API",
+      default_version='v1.0',
+      description="测试工程接口文档",
+      terms_of_service="https://www.baidu.com",
+      contact=openapi.Contact(email="Lone"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   authentication_classes=(),
+   permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('jwt/', include('jwt_demo.urls')),
+    # path('api-auth/', include('rest_framework.urls')),
     re_path(r'^media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
+    # 配置drf-yasg路由
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
